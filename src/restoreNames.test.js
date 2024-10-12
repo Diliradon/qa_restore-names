@@ -36,4 +36,39 @@ describe('restoreNames', () => {
       },
     ]);
   });
+
+  it('should return undefined', () => {
+    const data = [
+      {
+        firstName: undefined,
+        lastName: 'Holy',
+        fullName: 'Jack Holy',
+      },
+    ];
+
+    const result = restoreNames(data);
+
+    expect(result).toBeUndefined();
+  });
+
+  it('should not change objects with an existing firstName', () => {
+    const data = [
+      {
+        firstName: 'Jane',
+        lastName: 'Doe',
+        fullName: 'Jane Doe',
+      },
+      {
+        firstName: 'John',
+        lastName: 'Smith',
+        fullName: 'John Smith',
+      },
+    ];
+
+    const initialData = JSON.parse(JSON.stringify(data));
+
+    restoreNames(data);
+
+    expect(data).toEqual(initialData);
+  });
 });
